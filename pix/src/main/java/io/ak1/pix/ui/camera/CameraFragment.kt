@@ -1,4 +1,4 @@
-package io.ak1.pix
+package io.ak1.pix.ui.camera
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import io.ak1.pix.R
 import io.ak1.pix.adapters.InstantImageAdapter
 import io.ak1.pix.adapters.MainImageAdapter
 import io.ak1.pix.databinding.FragmentPixBinding
@@ -38,7 +39,7 @@ import kotlin.coroutines.cancellation.CancellationException
  * https://ak1.io
  */
 
-class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Unit)? = null) :
+class CameraFragment(private val resultCallback: ((PixEventCallback.Results) -> Unit)? = null) :
     Fragment(), View.OnTouchListener {
 
     private val model: PixViewModel by viewModels()
@@ -73,7 +74,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 try {
                     requireActivity().hideStatusBar()
                 } catch (e: IllegalStateException) {
-                    e.message?.let { Log.e("PixFragment", it) }
+                    e.message?.let { Log.e("CameraFragment", it) }
                 }
             }, 200)
         }
@@ -106,8 +107,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         binding.root
     }
 
-
-    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setup()
@@ -121,7 +120,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         setFragmentResultListener(ARG_PARAM_PIX_KEY) { _, bundle ->
             val options1: Options? = bundle.getParcelable(ARG_PARAM_PIX)
             options1?.let {
-                this@PixFragment.options.preSelectedUrls.apply {
+                this@CameraFragment.options.preSelectedUrls.apply {
                     clear()
                     addAll(it.preSelectedUrls)
                 }
@@ -223,7 +222,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         binding.gridLayout.apply {
             fastscrollScrollbar.hide()
             fastscrollBubble.hide()
-            fastscrollHandle.setOnTouchListener(this@PixFragment)
+            fastscrollHandle.setOnTouchListener(this@CameraFragment)
         }
     }
 
@@ -345,7 +344,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             instantRecyclerView.adapter = instantImageAdapter
             instantRecyclerView.addOnItemTouchListener(CustomItemTouchListener(binding))
             recyclerView.setupMainRecyclerView(
-                context, mainImageAdapter, scrollListener(this@PixFragment, binding)
+                context, mainImageAdapter, scrollListener(this@CameraFragment, binding)
             )
         }
     }
