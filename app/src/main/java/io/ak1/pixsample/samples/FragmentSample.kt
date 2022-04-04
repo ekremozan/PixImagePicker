@@ -23,7 +23,7 @@ import io.ak1.pixsample.options
 class FragmentSample : AppCompatActivity() {
 
     private val resultsFragment = ResultsFragment {
-        showCameraFragment()
+        showImagePickerFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +48,12 @@ class FragmentSample : AppCompatActivity() {
                     supportFragmentManager.popBackStack()
                 }
             }
+
+        }
+    }
+
+    private fun showImagePickerFragment() {
+        addPixImagePickerToActivity(R.id.container, options) {
 
         }
     }

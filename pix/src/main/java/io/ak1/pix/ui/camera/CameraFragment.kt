@@ -21,7 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.ak1.pix.R
 import io.ak1.pix.adapters.InstantImageAdapter
 import io.ak1.pix.adapters.MainImageAdapter
-import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.databinding.FragmentCameraBinding
 import io.ak1.pix.helpers.*
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
@@ -43,14 +43,12 @@ class CameraFragment(private val resultCallback: ((PixEventCallback.Results) -> 
     Fragment(), View.OnTouchListener {
 
     private val model: PixViewModel by viewModels()
-    private var _binding: FragmentPixBinding? = null
+    private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
     private var permReqLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            if (permissions.all {
-                    it.value
-                }) {
+            if (permissions.all { it.value }) {
                 binding.permissionsLayout.permissionsLayout.hide()
                 binding.gridLayout.gridLayout.show()
                 initialise(requireActivity())
@@ -103,7 +101,7 @@ class CameraFragment(private val resultCallback: ((PixEventCallback.Results) -> 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = run {
-        _binding = FragmentPixBinding.inflate(inflater, container, false)
+        _binding = FragmentCameraBinding.inflate(inflater, container, false)
         binding.root
     }
 

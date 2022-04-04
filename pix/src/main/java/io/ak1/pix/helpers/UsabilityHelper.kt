@@ -74,6 +74,16 @@ open class PixEventCallback {
 object PixBus : PixEventCallback()
 
 
+fun AppCompatActivity.addPixImagePickerToActivity(
+    containerId: Int,
+    options: Options?,
+    resultCallback: ((PixEventCallback.Results) -> Unit)? = null
+) {
+    supportFragmentManager.beginTransaction()
+        .replace(containerId, ImagePickerFragment()).commit()
+}
+
+
 fun AppCompatActivity.addPixCameraToActivity(
     containerId: Int,
     options: Options?,

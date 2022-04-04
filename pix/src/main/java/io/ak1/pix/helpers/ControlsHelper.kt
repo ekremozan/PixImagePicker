@@ -16,7 +16,8 @@ import androidx.camera.core.ImageCapture
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.FragmentActivity
 import io.ak1.pix.R
-import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.databinding.FragmentCameraBinding
+import io.ak1.pix.databinding.FragmentImagePickerBinding
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
@@ -28,7 +29,7 @@ import io.ak1.pix.utility.TAG
  * https://ak1.io
  */
 
-fun FragmentPixBinding.setDrawableIconForFlash(options: Options) {
+fun FragmentCameraBinding.setDrawableIconForFlash(options: Options) {
     gridLayout.controlsLayout.flashImage.setImageResource(
         when (options.flash) {
             Flash.Off -> R.drawable.ic_flash_off_black_24dp
@@ -70,7 +71,7 @@ fun ViewGroup.setOnClickForFLash(options: Options, callback: (Options) -> Unit) 
 }
 
 @SuppressLint("ClickableViewAccessibility,RestrictedApi")
-internal fun FragmentPixBinding.setupClickControls(
+internal fun FragmentCameraBinding.setupClickControls(
     model: PixViewModel,
     cameraXManager: CameraXManager?,
     options: Options,
@@ -243,7 +244,7 @@ internal fun FragmentPixBinding.setupClickControls(
     }
 }
 
-fun FragmentPixBinding.longSelectionStatus(
+fun FragmentCameraBinding.longSelectionStatus(
     enabled: Boolean
 ) {
     val colorPrimaryDark = root.context.color(R.color.primary_color_pix)
@@ -263,7 +264,38 @@ fun FragmentPixBinding.longSelectionStatus(
     }
 }
 
-fun FragmentPixBinding.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
+fun FragmentCameraBinding.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
+    gridLayout.selectionCount.text = if (size == 0) {
+        gridLayout.selectionOk.hide()
+        fragmentActivity.resources.getString(R.string.pix_tap_to_select)
+    } else {
+        gridLayout.selectionOk.show()
+        "$size ${fragmentActivity.resources.getString(R.string.pix_selected)}"
+    }
+    gridLayout.imgCount.text = size.toString()
+}
+
+fun FragmentImagePickerBinding.longSelectionStatus(
+    enabled: Boolean
+) {
+    val colorPrimaryDark = root.context.color(R.color.primary_color_pix)
+    val colorSurface = root.context.color(R.color.surface_color_pix)
+
+    if (enabled) {
+        gridLayout.selectionCheck.hide()
+        gridLayout.selectionCount.setTextColor(colorSurface)
+        gridLayout.topbar.setBackgroundColor(colorPrimaryDark)
+        DrawableCompat.setTint(gridLayout.selectionBack.drawable, colorSurface)
+        DrawableCompat.setTint(gridLayout.selectionCheck.drawable, colorSurface)
+    } else {
+        gridLayout.selectionCheck.show()
+        DrawableCompat.setTint(gridLayout.selectionBack.drawable, colorPrimaryDark)
+        DrawableCompat.setTint(gridLayout.selectionCheck.drawable, colorPrimaryDark)
+        gridLayout.topbar.setBackgroundColor(colorSurface)
+    }
+}
+
+fun FragmentImagePickerBinding.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
     gridLayout.selectionCount.text = if (size == 0) {
         gridLayout.selectionOk.hide()
         fragmentActivity.resources.getString(R.string.pix_tap_to_select)

@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.R
 
 import io.ak1.pix.adapters.MainImageAdapter
-import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.databinding.FragmentCameraBinding
+import io.ak1.pix.databinding.FragmentImagePickerBinding
 import io.ak1.pix.utility.HeaderItemDecoration
 import io.ak1.pix.utility.IMAGE_VIDEO_URI
 import java.io.File
@@ -74,7 +75,7 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
         callback?.invoke(mainUri)
     }
 
-fun FragmentActivity.setUpMargins(binding: FragmentPixBinding) {
+fun FragmentActivity.setUpMargins(binding: FragmentCameraBinding) {
     val height =
         if (this@setUpMargins.navigationBarHeight < 50) 0 else this@setUpMargins.navigationBarHeight
     binding.gridLayout.mainContent.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -93,6 +94,29 @@ fun FragmentActivity.setUpMargins(binding: FragmentPixBinding) {
             updateMargins(
                 0, 0, this@apply.context.toPx(16f).toInt(),
                 this@apply.context.toPx(160f).toInt() + height
+            )
+        }
+    }
+}
+
+fun FragmentActivity.setUpMargins(binding: FragmentImagePickerBinding) {
+    val height = if (this@setUpMargins.navigationBarHeight < 50) 0 else this@setUpMargins.navigationBarHeight
+    binding.gridLayout.mainContent.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+        updateMargins(
+            0,
+            this@setUpMargins.statusBarHeight,
+            0,
+            height
+        )
+    }
+
+    binding.gridLayout.sendButton.apply {
+        updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            updateMargins(
+                0,
+                0,
+                this@apply.context.toPx(16f).toInt(),
+                this@apply.context.toPx(16f).toInt() + height
             )
         }
     }
