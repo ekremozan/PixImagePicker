@@ -54,7 +54,18 @@ class FragmentSample : AppCompatActivity() {
 
     private fun showImagePickerFragment() {
         addPixImagePickerToActivity(R.id.container, options) {
-
+            when (it.status) {
+                PixEventCallback.Status.SUCCESS -> {
+                    showResultsFragment()
+                    it.data.forEach {
+                        Log.e(TAG, "showCameraFragment: ${it.path}")
+                    }
+                    resultsFragment.setList(it.data)
+                }
+                PixEventCallback.Status.BACK_PRESSED -> {
+                    supportFragmentManager.popBackStack()
+                }
+            }
         }
     }
 
