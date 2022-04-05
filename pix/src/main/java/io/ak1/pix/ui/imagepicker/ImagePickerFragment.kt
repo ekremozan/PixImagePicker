@@ -234,14 +234,18 @@ class ImagePickerFragment(private val resultCallback: ((PixEventCallback.Results
         binding.setupClickControls() { int, _ ->
             when (int) {
                 0 -> viewModel.returnObjects()
-                1 -> viewModel.returnObjects()
+                1 -> onPressedBackButton()
                 2 -> viewModel.longSelection.postValue(true)
             }
         }
     }
 
+    private fun onPressedBackButton(){
+        viewModel.selectionList.value?.clear()
+        viewModel.returnObjects()
+    }
+
     private fun retrieveMedia() {
-        // options.preSelectedUrls.addAll(selectionList)
         if (options.preSelectedUrls.size > options.count) {
             val large = options.preSelectedUrls.size - 1
             val small = options.count
@@ -263,6 +267,7 @@ class ImagePickerFragment(private val resultCallback: ((PixEventCallback.Results
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
