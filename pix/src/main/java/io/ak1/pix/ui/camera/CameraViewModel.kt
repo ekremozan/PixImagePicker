@@ -12,7 +12,7 @@ import io.ak1.pix.interfaces.PixLifecycle
  */
 
 
-internal class PixViewModel : ViewModel(), PixLifecycle {
+internal class CameraViewModel : ViewModel(), PixLifecycle {
 
     val longSelection: MutableLiveData<Boolean> = MutableLiveData(false)
     val selectionList by lazy { MutableLiveData<MutableSet<Img>>(HashSet()) }

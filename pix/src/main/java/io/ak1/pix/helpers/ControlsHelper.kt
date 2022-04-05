@@ -18,10 +18,10 @@ import androidx.fragment.app.FragmentActivity
 import io.ak1.pix.R
 import io.ak1.pix.databinding.FragmentCameraBinding
 import io.ak1.pix.databinding.FragmentImagePickerBinding
+import io.ak1.pix.models.CameraViewModel
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
-import io.ak1.pix.models.PixViewModel
 import io.ak1.pix.utility.TAG
 
 /**
@@ -72,7 +72,7 @@ fun ViewGroup.setOnClickForFLash(options: Options, callback: (Options) -> Unit) 
 
 @SuppressLint("ClickableViewAccessibility,RestrictedApi")
 internal fun FragmentCameraBinding.setupClickControls(
-    model: PixViewModel,
+    model: CameraViewModel,
     cameraXManager: CameraXManager?,
     options: Options,
     callback: (Int, Uri) -> Unit
@@ -305,3 +305,4 @@ fun FragmentImagePickerBinding.setSelectionText(fragmentActivity: FragmentActivi
     }
     gridLayout.imgCount.text = size.toString()
 }
+

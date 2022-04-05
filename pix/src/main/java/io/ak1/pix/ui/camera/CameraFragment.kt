@@ -26,7 +26,7 @@ import io.ak1.pix.helpers.*
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
 import io.ak1.pix.models.Options
-import io.ak1.pix.models.PixViewModel
+import io.ak1.pix.models.CameraViewModel
 import io.ak1.pix.utility.ARG_PARAM_PIX
 import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import io.ak1.pix.utility.CustomItemTouchListener
@@ -42,7 +42,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class CameraFragment(private val resultCallback: ((PixEventCallback.Results) -> Unit)? = null) :
     Fragment(), View.OnTouchListener {
 
-    private val model: PixViewModel by viewModels()
+    private val model: CameraViewModel by viewModels()
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
