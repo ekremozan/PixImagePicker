@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.ak1.pix.helpers.LocalResourceManager
 import io.ak1.pix.interfaces.PixLifecycle
-import io.ak1.pix.models.Event
+import io.ak1.pix.ui.camera.Event
 import io.ak1.pix.models.Img
 import io.ak1.pix.models.ModelList
 import io.ak1.pix.models.Options
